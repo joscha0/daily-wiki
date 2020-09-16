@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+
+  <title>WIKI Newsletter</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="Subscribe To My Weekly Newsletter.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000">
+
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css')}}">
+
+  <script src="{{ url_for('static',filename='js/index.js')}}"></script>
+
+</head>
+
+<body>
+  <div class="container">
+<h2>Wikipedia Article of the Day Email Newsletter</h2>
+      <form method="POST" action="/subscribe" class="form">
+          <label for="email">Email:</label>
+          <input type="email" placeholder="email@email.com" name="email" required="">
+          <label for="lang">Languange:</label>
+          <select name="lang" id="lang">
+            <option value="en">English</option>
+            <option value="de">Deutsch</option>
+            <option value="fr">Français</option>
+            <option value="sv">Svenska</option>
+            <option value="ja">日本語</option>
+            <option value="zh">中文</option>
+          </select>
+          <br><br>
+          
+          <button id="submit" type="submit" >Subscribe</button>
+        
+        <br>
+      </form>
+      {% if message %}
+        <p><b>{{ message }}</b></p>
+      {% endif %}
+    </div>
+
+</body>
+
+</html>
