@@ -1,0 +1,17 @@
+body {
+  background: #000;
+  color: white;
+
+}
+
+.container {
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form {
+  text-align: center;
+}
