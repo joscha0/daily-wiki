@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, jsonify, abort
 import requests
 import db
 import re
+from sendmail import send_confirm_email
 
 app = Flask(__name__)
 
@@ -15,19 +16,23 @@ def main():
 @app.route('/confirm/<email>')
 def confirm(email):
     if(db.validateuser(email)):
-        return render_template('subscribed.html')
+        header = "Thanks for Subscribing!"
+        text = "Your email has been confirmed. You'll receive your daily Wikipedia Mail from now on."
+        return render_template('info.html', text=text, header=header)
     else:
         text = 'Email does not exist.'
-        return render_template('error.html', text=text, again=True)
+        return render_template('info.html', text=text)
 
 
 @app.route('/unsubscribe/<email>')
 def unsubscribe(email):
     if(db.deluser(email)):
-        return render_template('unsubscribed.html')
+        header = "Sorry to see you go."
+        text = "You have successfully unsubscribed from the newsletter."
+        return render_template('info.html', text=text, header=header)
     else:
         text = 'You are not subscribed to this newsletter.'
-        return render_template('error.html', text=text, again=False)
+        return render_template('info.html', text=text)
 
 
 @app.route('/users')
@@ -57,7 +62,7 @@ def subscribe():
 
     elif(db.adduser(email, language)):
         text = f' Please click on the link in the email I sent to {email}, to confirm your registration!'
-
+        send_confirm_email(email)
     else:
         text = 'User Already Exists'
     return render_template('index.html', message=text)

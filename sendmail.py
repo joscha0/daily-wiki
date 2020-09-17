@@ -6,6 +6,8 @@ import bs4
 from datetime import datetime
 import json
 
+import passwords
+
 
 def get_wiki(language):
     date = datetime.now().strftime("%Y%m%d000000")
@@ -47,33 +49,33 @@ def send_email(img, text, email):
                    '<br>' + unsubscribe_tag, 'html')
     msg['Subject'] = 'today wiki'
     msg['From'] = 'daily-wiki@960.eu'
-    msg['To'] = 'joschavonandrian@gmail.com'
+    msg['To'] = email
 
-    s = smtplib.SMTP_SSL('s214.goserver.host', 465)
-    s.login('web21p7', 'rl2CpSRWKgqwBYi9')
+    s = smtplib.SMTP_SSL(passwords.host, 465)
+    s.login(passwords.username, passwords.password)
     s.sendmail(msg['From'], msg['To'], msg.as_string())
     s.quit()
 
 
 def send_confirm_email(email):
-    confirm_tag = f'<a href="https://daily-wiki.960.eu/unsubscribe/{email}">unsubscribe</a>'
+    confirm_tag = f'<a href="https://daily-wiki.960.eu/confirm/{email}">confirm email</a>'
 
-    text = f''
+    text = f'Confirm your Email: <br> {confirm_tag}'
 
     msg = MIMEText(text, 'html')
     msg['Subject'] = 'confirm daily wiki newsletter'
     msg['From'] = 'daily-wiki@960.eu'
-    msg['To'] = 'joschavonandrian@gmail.com'
+    msg['To'] = email
 
-    s = smtplib.SMTP_SSL('s214.goserver.host', 465)
-    s.login('web21p7', 'rl2CpSRWKgqwBYi9')
+    s = smtplib.SMTP_SSL(passwords.host, 465)
+    s.login(passwords.username, passwords.password)
     s.sendmail(msg['From'], msg['To'], msg.as_string())
     s.quit()
 
 
 if __name__ == "__main__":
-    img, text = get_wiki()
     with open("email.json", "r") as jsonFile:
         data = json.load(jsonFile)
     for email in data:
+        img, text = get_wiki(data[email]["language"])
         send_email(img, text, email)
