@@ -74,8 +74,14 @@ def send_confirm_email(email):
 
 
 if __name__ == "__main__":
+    languages = ["en", "de", "fr", "sv", "ja", "zh"]
+    wikis = {}
+    for language in languages:
+        img, text = get_wiki(language)
+        wikis[language] = (img, text)
+    print(wikis)
     with open("email.json", "r") as jsonFile:
         data = json.load(jsonFile)
     for email in data:
-        img, text = get_wiki(data[email]["language"])
+        img, text = wikis[data[email]["language"]]
         send_email(img, text, email)
