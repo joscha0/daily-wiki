@@ -43,7 +43,7 @@ def get_wiki(language):
 
 
 def send_email(img, text, email):
-    unsubscribe_tag = f'<a href="https://daily-wiki.960.eu/unsubscribe/{email}">unsubscribe</a>'
+    unsubscribe_tag = f'<a href="http://daily-wiki.960.eu/unsubscribe/{email}">unsubscribe</a>'
 
     msg = MIMEText(str(img) + 3*'<br>' + text + 3 *
                    '<br>' + unsubscribe_tag, 'html')
