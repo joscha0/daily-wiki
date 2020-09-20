@@ -1,6 +1,10 @@
 import os
 import json
 
+'''
+ functions for local database with email.json file
+'''
+
 
 def adduser(email, lang):
     with open("email.json", "r") as jsonFile:
