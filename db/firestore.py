@@ -44,7 +44,12 @@ def validateuser(email):
 
 
 def deluser(email):
-    db.collection(u'emails').document(email).delete()
+    doc_ref = db.collection(u'emails').document(email)
+    if doc_ref.get().exists:
+        doc_ref.delete()
+        return True
+    else:
+        return False
 
 
 if __name__ == "__main__":
