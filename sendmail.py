@@ -5,6 +5,7 @@ import requests
 import bs4
 from datetime import datetime
 import json
+from db import firestore
 
 import passwords
 
@@ -79,9 +80,7 @@ if __name__ == "__main__":
     for language in languages:
         img, text = get_wiki(language)
         wikis[language] = (img, text)
-    print(wikis)
-    with open("email.json", "r") as jsonFile:
-        data = json.load(jsonFile)
+    data = firestore.getusers()
     for email in data:
         img, text = wikis[data[email]["language"]]
         send_email(img, text, email)
