@@ -6,8 +6,7 @@ import bs4
 from datetime import datetime
 import json
 from db import firestore
-
-import passwords
+import os
 
 
 def get_wiki(language):
@@ -44,7 +43,7 @@ def get_wiki(language):
 
 
 def send_email(img, text, email):
-    unsubscribe_tag = f'<a href="http://daily-wiki.960.eu/unsubscribe/{email}">unsubscribe</a>'
+    unsubscribe_tag = f'<a href="https://daily-wiki-newsletter.herokuapp.com/unsubscribe/{email}">unsubscribe</a>'
 
     msg = MIMEText(str(img) + 3*'<br>' + text + 3 *
                    '<br>' + unsubscribe_tag, 'html')
@@ -52,14 +51,14 @@ def send_email(img, text, email):
     msg['From'] = 'daily-wiki@960.eu'
     msg['To'] = email
 
-    s = smtplib.SMTP_SSL(passwords.host, 465)
-    s.login(passwords.username, passwords.password)
+    s = smtplib.SMTP_SSL(os.environ['host'], 465)
+    s.login(os.environ['username'], os.environ['password'])
     s.sendmail(msg['From'], msg['To'], msg.as_string())
     s.quit()
 
 
 def send_confirm_email(email):
-    confirm_tag = f'<a href="http://daily-wiki.960.eu/confirm/{email}">confirm email</a>'
+    confirm_tag = f'<a href="https://daily-wiki-newsletter.herokuapp.com/confirm/{email}">confirm email</a>'
 
     text = f'Confirm your Email: <br> {confirm_tag}'
 
@@ -68,8 +67,8 @@ def send_confirm_email(email):
     msg['From'] = 'daily-wiki@960.eu'
     msg['To'] = email
 
-    s = smtplib.SMTP_SSL(passwords.host, 465)
-    s.login(passwords.username, passwords.password)
+    s = smtplib.SMTP_SSL(os.environ['host'], 465)
+    s.login(os.environ['username'], os.environ['password'])
     s.sendmail(msg['From'], msg['To'], msg.as_string())
     s.quit()
 

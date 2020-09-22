@@ -61,7 +61,7 @@ def subscribe():
         text = "Invalid Email"
 
     elif(firestore.adduser(email, language)):
-        text = f' Please click on the link in the email I sent to {email}, to confirm your registration!'
+        text = f' Please click on the link in the email that was sent to {email}, to confirm your registration!'
         send_confirm_email(email)
     else:
         text = 'User Already Exists'
