@@ -6,8 +6,7 @@ import bs4
 from datetime import datetime
 import json
 from db import firestore
-
-import passwords
+import os
 
 
 def get_wiki(language):
@@ -52,8 +51,8 @@ def send_email(img, text, email):
     msg['From'] = 'daily-wiki@960.eu'
     msg['To'] = email
 
-    s = smtplib.SMTP_SSL(passwords.host, 465)
-    s.login(passwords.username, passwords.password)
+    s = smtplib.SMTP_SSL(os.environ['host'], 465)
+    s.login(os.environ['username'], os.environ['password'])
     s.sendmail(msg['From'], msg['To'], msg.as_string())
     s.quit()
 
@@ -68,8 +67,8 @@ def send_confirm_email(email):
     msg['From'] = 'daily-wiki@960.eu'
     msg['To'] = email
 
-    s = smtplib.SMTP_SSL(passwords.host, 465)
-    s.login(passwords.username, passwords.password)
+    s = smtplib.SMTP_SSL(os.environ['host'], 465)
+    s.login(os.environ['username'], os.environ['password'])
     s.sendmail(msg['From'], msg['To'], msg.as_string())
     s.quit()
 
