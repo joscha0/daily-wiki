@@ -44,7 +44,7 @@ def get_wiki(language):
 
 
 def send_email(img, text, email):
-    unsubscribe_tag = f'<a href="http://daily-wiki.960.eu/unsubscribe/{email}">unsubscribe</a>'
+    unsubscribe_tag = f'<a href="https://daily-wiki-newsletter.herokuapp.com/unsubscribe/{email}">unsubscribe</a>'
 
     msg = MIMEText(str(img) + 3*'<br>' + text + 3 *
                    '<br>' + unsubscribe_tag, 'html')
@@ -59,7 +59,7 @@ def send_email(img, text, email):
 
 
 def send_confirm_email(email):
-    confirm_tag = f'<a href="http://daily-wiki.960.eu/confirm/{email}">confirm email</a>'
+    confirm_tag = f'<a href="https://daily-wiki-newsletter.herokuapp.com/confirm/{email}">confirm email</a>'
 
     text = f'Confirm your Email: <br> {confirm_tag}'
 
