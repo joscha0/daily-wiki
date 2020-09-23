@@ -10,7 +10,7 @@ from getwiki import get_wiki
 def send_email(img, text, email):
     unsubscribe_tag = f'<a href="https://daily-wiki-newsletter.herokuapp.com/unsubscribe/{email}">unsubscribe</a>'
 
-    msg = MIMEText(str(img) + 3*'<br>' + text + 3 *
+    msg = MIMEText(img + 3*'<br>' + text + 3 *
                    '<br>' + unsubscribe_tag, 'html')
     msg['Subject'] = 'today wiki'
     msg['From'] = 'daily-wiki@960.eu'
