@@ -42,7 +42,10 @@ if __name__ == "__main__":
     languages = ["en", "de", "fr", "sv", "ja", "zh"]
     wikis = {}
     for language in languages:
-        img, text = get_wiki(language)
+        try:
+            img, text = get_wiki(language)
+        except:
+            print(f"Error getting article for {language}")
         wikis[language] = (img, text)
     data = firestore.getusers()
     for email in data:
