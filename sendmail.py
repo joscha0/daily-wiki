@@ -47,4 +47,8 @@ if __name__ == "__main__":
     data = firestore.getusers()
     for email in data:
         img, text = wikis[data[email]["language"]]
-        send_email(img, text, email)
+        try:
+            send_email(img, text, email)
+            print(f"Sent email to {email}")
+        except:
+            print(f"Email failed to send to {email}")
