@@ -33,4 +33,4 @@ def get_wiki(language):
     img = imgs[0]
     img['src'] = 'http:'+img['src']
 
-    return img, text
+    return str(img), str(text)
