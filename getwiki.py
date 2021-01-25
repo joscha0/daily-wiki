@@ -34,3 +34,24 @@ def get_wiki(language):
     img['src'] = 'http:'+img['src']
 
     return str(img), str(text)
+
+
+def get_wiki_for_twitter():
+    date = datetime.now().strftime("%Y%m%d000000")
+
+    link = f'https://en.wikipedia.org/wiki/Special:FeedItem/featured/{date}/en'
+    res = requests.get(link)
+
+    wiki = bs4.BeautifulSoup(res.text, "lxml")
+
+    elems = wiki.select('p')
+
+    link = 'https://en.wikipedia.org' + \
+        elems[0].select('a', href=True)[0]['href']
+
+    imgs = wiki.select('img')
+    img_url = 'https:'+imgs[0]['src']
+
+    text = elems[0].getText()
+
+    return str(text), link, img_url
