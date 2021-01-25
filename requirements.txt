@@ -4,3 +4,4 @@ bs4
 gunicorn
 lxml
 firebase-admin
+python-twitter
