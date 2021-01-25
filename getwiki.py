@@ -23,15 +23,17 @@ def get_wiki(language):
             elif tag.name == "p":
                 text += tag.getText()
         elems = wiki.select('p')
-        text = elems[4].getText()
+        text = elems[4]
     else:
         elems = wiki.select('p')
-        text = elems[0].getText()
+        text = elems[0]
 
     imgs = wiki.select('img')
-    imglink = 'http:'+imgs[0]['src']
     img = imgs[0]
-    img['src'] = 'http:'+img['src']
+    img['src'] = 'https:'+img['src']
+
+    for a in text.findAll('a'):
+        a['href'] = 'https://en.wikipedia.org'+a['href']
 
     return str(img), str(text)
 
