@@ -1,6 +1,7 @@
 import requests
 import bs4
 from datetime import datetime
+import re
 
 
 def get_wiki(language):
@@ -53,6 +54,7 @@ def get_wiki_for_twitter():
 
     imgs = wiki.select('img')
     img_url = 'https:'+imgs[0]['src']
+    img_url = re.sub('.jpg/.*?px', '.jpg/1200px', img_url, flags=re.DOTALL)
 
     text = elems[0].getText()
 
