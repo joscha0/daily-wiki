@@ -35,11 +35,6 @@ def unsubscribe(email):
         return render_template('info.html', text=text)
 
 
-@app.route('/users')
-def getusers():
-    return jsonify(firestore.getusers())
-
-
 @app.route('/deluser/<email>/<token>')
 def deluser(email, token):
     if(firestore.deluser(email)):
